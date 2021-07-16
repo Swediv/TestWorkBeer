@@ -6,3 +6,13 @@
 //
 
 import Foundation
+
+protocol MainRouterProtocol {
+    var presenter: MainPresenterProtocol! { get set }
+}
+
+class MainRouter: MainRouterProtocol {
+    var presenter: MainPresenterProtocol!
+    
+    
+}

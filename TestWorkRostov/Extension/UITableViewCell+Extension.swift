@@ -5,4 +5,10 @@
 //  Created by Artem Chuklov on 16.07.2021.
 //
 
-import Foundation
+import UIKit
+
+extension UITableViewCell {
+    static var reuseIdentifier: String {
+        String(describing: self)
+    }
+}
