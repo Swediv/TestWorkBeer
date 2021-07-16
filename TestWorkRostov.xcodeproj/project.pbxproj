@@ -19,6 +19,8 @@
 		10F4C8D826A19E130021E57F /* MainRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F4C8D726A19E130021E57F /* MainRouter.swift */; };
 		10F4C8DA26A19E540021E57F /* MainAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F4C8D926A19E540021E57F /* MainAssembly.swift */; };
 		10F4C8E026A1B0AD0021E57F /* URLBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F4C8DF26A1B0AD0021E57F /* URLBuilder.swift */; };
+		10F4C8E226A1B84D0021E57F /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F4C8E126A1B84D0021E57F /* NetworkManager.swift */; };
+		10F4C8E426A1E06C0021E57F /* ParsingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F4C8E326A1E06C0021E57F /* ParsingService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +38,8 @@
 		10F4C8D726A19E130021E57F /* MainRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainRouter.swift; sourceTree = "<group>"; };
 		10F4C8D926A19E540021E57F /* MainAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainAssembly.swift; sourceTree = "<group>"; };
 		10F4C8DF26A1B0AD0021E57F /* URLBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLBuilder.swift; sourceTree = "<group>"; };
+		10F4C8E126A1B84D0021E57F /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		10F4C8E326A1E06C0021E57F /* ParsingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParsingService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -186,6 +190,7 @@
 		10F4C8DD26A1B0790021E57F /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				10F4C8E126A1B84D0021E57F /* NetworkManager.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -193,6 +198,7 @@
 		10F4C8DE26A1B08A0021E57F /* Parsing */ = {
 			isa = PBXGroup;
 			children = (
+				10F4C8E326A1E06C0021E57F /* ParsingService.swift */,
 			);
 			path = Parsing;
 			sourceTree = "<group>";
@@ -266,9 +272,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				10F4C8E226A1B84D0021E57F /* NetworkManager.swift in Sources */,
 				10F4C8DA26A19E540021E57F /* MainAssembly.swift in Sources */,
 				10F4C8C626A194740021E57F /* MainViewController.swift in Sources */,
 				10F4C8D226A19BCE0021E57F /* UITableViewCell+Extension.swift in Sources */,
+				10F4C8E426A1E06C0021E57F /* ParsingService.swift in Sources */,
 				10F4C8AA26A18FDA0021E57F /* AppDelegate.swift in Sources */,
 				10F4C8CF26A199B80021E57F /* Beer.swift in Sources */,
 				10F4C8E026A1B0AD0021E57F /* URLBuilder.swift in Sources */,
