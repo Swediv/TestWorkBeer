@@ -12,9 +12,10 @@ class BeerCell: UITableViewCell {
     lazy var cellView: UIView = {
        let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .red
-        view.layer.cornerRadius = 20
-
+        view.backgroundColor = .clear
+        view.layer.cornerRadius = 25
+        view.layer.borderWidth = 2
+        view.layer.borderColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         return view
     }()
     
@@ -22,13 +23,19 @@ class BeerCell: UITableViewCell {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
-        imageView.backgroundColor = .blue
+        imageView.backgroundColor = .clear
+        imageView.layer.cornerRadius = 15
+        
         return imageView
     }()
     
     lazy var beerName: UILabel = {
        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .center
+        label.numberOfLines = 0
+        label.font = UIFont.systemFont(ofSize: 26, weight: .medium)
+        
         return label
     }()
     
@@ -42,8 +49,20 @@ class BeerCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    func configure(withBeer: Beer) {
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        beerName.text = ""
+        beerImage.image = nil
+    }
+    func configure(with beer: Beer) {
+        beerName.text = beer.name
+        if let url = URL(string: beer.imageURL) {
+             ImageService.getImage(from: url) { [weak self] image in
+                self?.beerImage.image = image
+            }
+        }
+        
         
     }
     
@@ -57,17 +76,18 @@ class BeerCell: UITableViewCell {
         NSLayoutConstraint.activate([
             cellView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
             cellView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
-            cellView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            cellView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            cellView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 5),
+            cellView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5),
             
-            beerName.centerYAnchor.constraint(equalTo: cellView.centerYAnchor),
+            beerName.topAnchor.constraint(equalTo: cellView.topAnchor),
             beerName.leadingAnchor.constraint(equalTo: cellView.leadingAnchor, constant: 10),
-            beerName.trailingAnchor.constraint(equalTo: beerImage.leadingAnchor, constant: 10),
+            beerName.trailingAnchor.constraint(equalTo: cellView.trailingAnchor, constant: -10),
             
-            beerImage.centerYAnchor.constraint(equalTo: cellView.centerYAnchor),
-            beerImage.trailingAnchor.constraint(equalTo: cellView.trailingAnchor, constant: -10),
-            beerImage.widthAnchor.constraint(equalToConstant: 70),
-            beerImage.heightAnchor.constraint(equalToConstant: 70)
+            beerImage.topAnchor.constraint(equalTo: beerName.bottomAnchor, constant: 15),
+            beerImage.centerXAnchor.constraint(equalTo: cellView.centerXAnchor),
+            beerImage.bottomAnchor.constraint(equalTo: cellView.bottomAnchor, constant: -8),
+            beerImage.widthAnchor.constraint(equalTo: cellView.widthAnchor, multiplier: 0.8),
+            
         ])
     }
 }

@@ -20,6 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         MainAssembly.configure(with: mainVC)
         let navigationController = UINavigationController(rootViewController: mainVC)
         
+        
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
         

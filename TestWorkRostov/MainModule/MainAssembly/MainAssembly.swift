@@ -13,21 +13,13 @@ protocol MainAssemblyProtocol {
 
 class MainAssembly: MainAssemblyProtocol {
     static func configure(with viewController: MainViewController) {
-        let presenter = MainPresenter()
-        let interactor = MainInteractor()
-        let router = MainRouter()
+        let presenter = MainPresenter(view: viewController)
+        let interactor = MainInteractor(presenter: presenter)
+        let router = MainRouter(presenter: presenter)
         
         viewController.presenter = presenter
         
         presenter.interactor = interactor
-        presenter.router = router
-        presenter.view = viewController
-        
-        interactor.presenter = presenter
-        
-        router.presenter = presenter
-        
+        presenter.router = router     
     }
-    
-    
 }

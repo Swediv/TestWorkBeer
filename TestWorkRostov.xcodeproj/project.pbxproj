@@ -21,6 +21,13 @@
 		10F4C8E026A1B0AD0021E57F /* URLBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F4C8DF26A1B0AD0021E57F /* URLBuilder.swift */; };
 		10F4C8E226A1B84D0021E57F /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F4C8E126A1B84D0021E57F /* NetworkManager.swift */; };
 		10F4C8E426A1E06C0021E57F /* ParsingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F4C8E326A1E06C0021E57F /* ParsingService.swift */; };
+		10F4C8E726A1FD360021E57F /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F4C8E626A1FD360021E57F /* ImageService.swift */; };
+		10F4C8E926A22FD10021E57F /* UIScrollView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F4C8E826A22FD10021E57F /* UIScrollView+Extension.swift */; };
+		10F4C8F026A2C83F0021E57F /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F4C8EF26A2C83F0021E57F /* DetailViewController.swift */; };
+		10F4C8F226A2C8780021E57F /* DetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F4C8F126A2C8780021E57F /* DetailPresenter.swift */; };
+		10F4C8F426A2C8C70021E57F /* DetailInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F4C8F326A2C8C70021E57F /* DetailInteractor.swift */; };
+		10F4C8F626A2C8FF0021E57F /* DetailRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F4C8F526A2C8FF0021E57F /* DetailRouter.swift */; };
+		10F4C8F826A32BBB0021E57F /* DetailModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F4C8F726A32BBB0021E57F /* DetailModuleAssembly.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +47,13 @@
 		10F4C8DF26A1B0AD0021E57F /* URLBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLBuilder.swift; sourceTree = "<group>"; };
 		10F4C8E126A1B84D0021E57F /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		10F4C8E326A1E06C0021E57F /* ParsingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParsingService.swift; sourceTree = "<group>"; };
+		10F4C8E626A1FD360021E57F /* ImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
+		10F4C8E826A22FD10021E57F /* UIScrollView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Extension.swift"; sourceTree = "<group>"; };
+		10F4C8EF26A2C83F0021E57F /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		10F4C8F126A2C8780021E57F /* DetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPresenter.swift; sourceTree = "<group>"; };
+		10F4C8F326A2C8C70021E57F /* DetailInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInteractor.swift; sourceTree = "<group>"; };
+		10F4C8F526A2C8FF0021E57F /* DetailRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRouter.swift; sourceTree = "<group>"; };
+		10F4C8F726A32BBB0021E57F /* DetailModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailModuleAssembly.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +115,11 @@
 		10F4C8BE26A190880021E57F /* DetailModule */ = {
 			isa = PBXGroup;
 			children = (
+				10F4C8EE26A2C8160021E57F /* DetailRouter */,
+				10F4C8ED26A2C8020021E57F /* DetailInteractor */,
+				10F4C8EC26A2C7F90021E57F /* DetailPresenter */,
+				10F4C8EB26A2C7F10021E57F /* DetailView */,
+				10F4C8EA26A2C7DE0021E57F /* DetailModuleAssembly */,
 			);
 			path = DetailModule;
 			sourceTree = "<group>";
@@ -165,6 +184,7 @@
 			isa = PBXGroup;
 			children = (
 				10F4C8D126A19BCE0021E57F /* UITableViewCell+Extension.swift */,
+				10F4C8E826A22FD10021E57F /* UIScrollView+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -172,6 +192,7 @@
 		10F4C8DB26A1B0640021E57F /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				10F4C8E526A1FD230021E57F /* ImageService */,
 				10F4C8DE26A1B08A0021E57F /* Parsing */,
 				10F4C8DD26A1B0790021E57F /* Networking */,
 				10F4C8DC26A1B06F0021E57F /* URLBuilder */,
@@ -201,6 +222,54 @@
 				10F4C8E326A1E06C0021E57F /* ParsingService.swift */,
 			);
 			path = Parsing;
+			sourceTree = "<group>";
+		};
+		10F4C8E526A1FD230021E57F /* ImageService */ = {
+			isa = PBXGroup;
+			children = (
+				10F4C8E626A1FD360021E57F /* ImageService.swift */,
+			);
+			path = ImageService;
+			sourceTree = "<group>";
+		};
+		10F4C8EA26A2C7DE0021E57F /* DetailModuleAssembly */ = {
+			isa = PBXGroup;
+			children = (
+				10F4C8F726A32BBB0021E57F /* DetailModuleAssembly.swift */,
+			);
+			path = DetailModuleAssembly;
+			sourceTree = "<group>";
+		};
+		10F4C8EB26A2C7F10021E57F /* DetailView */ = {
+			isa = PBXGroup;
+			children = (
+				10F4C8EF26A2C83F0021E57F /* DetailViewController.swift */,
+			);
+			path = DetailView;
+			sourceTree = "<group>";
+		};
+		10F4C8EC26A2C7F90021E57F /* DetailPresenter */ = {
+			isa = PBXGroup;
+			children = (
+				10F4C8F126A2C8780021E57F /* DetailPresenter.swift */,
+			);
+			path = DetailPresenter;
+			sourceTree = "<group>";
+		};
+		10F4C8ED26A2C8020021E57F /* DetailInteractor */ = {
+			isa = PBXGroup;
+			children = (
+				10F4C8F326A2C8C70021E57F /* DetailInteractor.swift */,
+			);
+			path = DetailInteractor;
+			sourceTree = "<group>";
+		};
+		10F4C8EE26A2C8160021E57F /* DetailRouter */ = {
+			isa = PBXGroup;
+			children = (
+				10F4C8F526A2C8FF0021E57F /* DetailRouter.swift */,
+			);
+			path = DetailRouter;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -273,15 +342,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				10F4C8E226A1B84D0021E57F /* NetworkManager.swift in Sources */,
+				10F4C8F826A32BBB0021E57F /* DetailModuleAssembly.swift in Sources */,
 				10F4C8DA26A19E540021E57F /* MainAssembly.swift in Sources */,
 				10F4C8C626A194740021E57F /* MainViewController.swift in Sources */,
 				10F4C8D226A19BCE0021E57F /* UITableViewCell+Extension.swift in Sources */,
 				10F4C8E426A1E06C0021E57F /* ParsingService.swift in Sources */,
 				10F4C8AA26A18FDA0021E57F /* AppDelegate.swift in Sources */,
 				10F4C8CF26A199B80021E57F /* Beer.swift in Sources */,
+				10F4C8E926A22FD10021E57F /* UIScrollView+Extension.swift in Sources */,
 				10F4C8E026A1B0AD0021E57F /* URLBuilder.swift in Sources */,
+				10F4C8E726A1FD360021E57F /* ImageService.swift in Sources */,
 				10F4C8D426A19DA40021E57F /* MainPresenter.swift in Sources */,
+				10F4C8F226A2C8780021E57F /* DetailPresenter.swift in Sources */,
 				10F4C8CD26A198040021E57F /* BeerCell.swift in Sources */,
+				10F4C8F426A2C8C70021E57F /* DetailInteractor.swift in Sources */,
+				10F4C8F026A2C83F0021E57F /* DetailViewController.swift in Sources */,
+				10F4C8F626A2C8FF0021E57F /* DetailRouter.swift in Sources */,
 				10F4C8D626A19DE00021E57F /* MainInteractor.swift in Sources */,
 				10F4C8D826A19E130021E57F /* MainRouter.swift in Sources */,
 			);

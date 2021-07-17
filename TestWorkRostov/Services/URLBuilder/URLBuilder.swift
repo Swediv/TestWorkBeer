@@ -31,7 +31,7 @@ enum URLBuilder {
         switch self {
         
         case .forLoading:
-            return "v2/beers"
+            return "/v2/beers"
         }
     }
     

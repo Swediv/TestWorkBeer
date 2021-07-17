@@ -9,14 +9,14 @@ import Foundation
 
 class NetworkManager {
     @discardableResult
-    func request(_ builder: URLBuilder,  completion: @escaping (Result<Data,Error>) -> Void) -> URLSessionTask? {
+    static func request(_ builder: URLBuilder,  completion: @escaping (Result<Data,Error>) -> Void) -> URLSessionDataTask? {
         guard let url = builder.build() else { return nil}
-        debugPrint("NetworkManager: URLBuilder: \(url)")
+        print("NetworkManager: URLBuilder: \(url)")
         let session = URLSession.shared
         
         let task = session.dataTask(with: url) { data, response, error in
             if let error = error {
-                debugPrint("NetworkManager: error: \(error)")
+                print(error)
                 completion(.failure(error))
             }
             
