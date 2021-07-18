@@ -6,15 +6,15 @@
 //
 
 import Foundation
-//https://api.punkapi.com/v2/beers?page=2&per_page=80
+
 
 enum URLBuilder {
     case forLoading(page: String?, countPerPage: String?)
     
     var queryItems: [URLQueryItem] {
         var queryItems: [URLQueryItem] = []
-        
         switch self {
+        
         case let .forLoading(page: page, countPerPage: countPerPage):
             if let page = page {
                 queryItems.append(URLQueryItem(name: "page", value: page))
@@ -46,7 +46,5 @@ enum URLBuilder {
         }
         
         return components.url
-    }
-    
-    
+    } 
 }

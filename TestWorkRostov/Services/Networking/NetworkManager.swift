@@ -18,9 +18,7 @@ class NetworkManager {
             if let error = error {
                 completion(.failure(error))
             }
-            
             if let data = data {
-                
                 completion(.success(data))
             }
         }

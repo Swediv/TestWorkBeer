@@ -12,6 +12,7 @@ class ParsingService {
         
         do {
             let result = try JSONDecoder().decode(T.self, from: data)
+            
             return .success(result)
         } catch {
             return .failure(.parsingError)

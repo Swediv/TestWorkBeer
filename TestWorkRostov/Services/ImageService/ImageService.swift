@@ -34,8 +34,10 @@ class ImageService {
     static func getImage(from url: URL, completion: @escaping (_ image: UIImage?) ->Void) -> URLSessionDataTask? {
         if let image = cache.object(forKey: url.absoluteString as NSString) {
             completion(image)
+            
             return nil
         }
+        
         return downloadImage(from: url, completion: completion)
     }
 }

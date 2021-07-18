@@ -8,36 +8,31 @@
 import UIKit
 
 class BeerCell: UITableViewCell {
-
-    private var task: URLSessionDataTask?
     
+    private var task: URLSessionDataTask?
     var beerImageURL: URL? {
         didSet {
             setImage()
         }
     }
-    
     lazy var cellView: UIView = {
-       let view = UIView()
+        let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .clear
         view.layer.cornerRadius = 25
         view.layer.borderWidth = 2
         view.layer.borderColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        
         return view
     }()
-    
     lazy var indicator: UIActivityIndicatorView = {
-        
         let indicator = UIActivityIndicatorView()
         indicator.translatesAutoresizingMaskIntoConstraints = false
         indicator.color = .black
         indicator.hidesWhenStopped = true
-        
-
+         
         return indicator
     }()
-    
     lazy var beerImage: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -50,9 +45,8 @@ class BeerCell: UITableViewCell {
         
         return imageView
     }()
-    
     lazy var beerName: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
         label.numberOfLines = 0
@@ -71,6 +65,7 @@ class BeerCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     override func prepareForReuse() {
         super.prepareForReuse()
         
@@ -78,12 +73,11 @@ class BeerCell: UITableViewCell {
         beerName.text = ""
         beerImage.image = nil
     }
+    
     func configure(with beer: Beer) {
         beerName.text = beer.name
         beerImage.image = nil
         self.beerImageURL = URL(string: beer.imageURL)
-        
-        
     }
     
     private func setupUI() {
@@ -106,14 +100,14 @@ class BeerCell: UITableViewCell {
             beerImage.topAnchor.constraint(equalTo: beerName.bottomAnchor, constant: 15),
             beerImage.centerXAnchor.constraint(equalTo: cellView.centerXAnchor),
             beerImage.bottomAnchor.constraint(equalTo: cellView.bottomAnchor, constant: -8),
-            beerImage.widthAnchor.constraint(equalTo: cellView.widthAnchor, multiplier: 0.8),
-            
+            beerImage.widthAnchor.constraint(equalTo: cellView.widthAnchor, multiplier: 0.8)    
         ])
     }
+    
     private func setImage() {
         if let url = beerImageURL {
             indicator.startAnimating()
-             task = ImageService.getImage(from: url) { [weak self] image in
+            task = ImageService.getImage(from: url) { [weak self] image in
                 self?.beerImage.image = image
                 DispatchQueue.main.async {
                     self?.indicator.stopAnimating()

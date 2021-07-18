@@ -8,8 +8,9 @@
 import UIKit
 
 protocol DetailModuleAssemblyProtocol: AnyObject {
-    
+    static func configure(with viewController: DetailViewController)
 }
+
 
 class DetailModuleAssembly {
     static func configure(with viewController: DetailViewController) {
@@ -21,7 +22,5 @@ class DetailModuleAssembly {
         
         presenter.interactor = interactor
         presenter.router = router
-        
-        
     }
 }

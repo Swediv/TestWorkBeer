@@ -11,18 +11,20 @@ protocol MainPresenterProtocol: AnyObject {
     var view: MainViewControllerProtocol! { get set }
     var interactor: MainInteractorProtocol! { get set }
     var router: MainRouterProtocol! { get set }
-    var beersCount: Int { get }
+    var beersCount: Int { get set }
     var beers: [Beer] { get set }
     
     func loadBeers()
     func interactorDidFetchedBeers(beers: [Beer])
     func cellDidPressed(at index: Int)
-    func presentWarning(withWarning warning: Warning)
+    func presentWarning(_ warning: Warning)
+    func presentError(_ error: Error)
+    func valueCountPerPageDidChange(to value: String)
 }
 
 class MainPresenter: MainPresenterProtocol {
-
     weak var view: MainViewControllerProtocol!
+    var router: MainRouterProtocol!
     
     var interactor: MainInteractorProtocol! {
         didSet {
@@ -31,8 +33,6 @@ class MainPresenter: MainPresenterProtocol {
             interactor.getBeers()
         }
     }
-    
-    var router: MainRouterProtocol!
     
     var beers: [Beer] = [] {
         didSet {
@@ -50,7 +50,7 @@ class MainPresenter: MainPresenterProtocol {
             view.returnViewToNormalState()
         }
     }
-
+    
     init(view: MainViewControllerProtocol) {
         self.view = view
     }
@@ -60,15 +60,27 @@ class MainPresenter: MainPresenterProtocol {
         view.startAnimating()
         interactor.getBeers()
     }
+    
     func interactorDidFetchedBeers(beers: [Beer]) {
         self.beers.append(contentsOf: beers)
-        
     }
+    
     func cellDidPressed(at index: Int) {
         router.presentDetailView(with: beers[index])
     }
-    func presentWarning(withWarning warning: Warning) {
-        router.presentWarning(withWarning: warning)
+    
+    func presentWarning(_ warning: Warning) {
+        view.stopAnimating()
+        router.presentWarning(warning)
     }
     
+    func presentError(_ error: Error) {
+        view.stopAnimating()
+        router.presentError(error)
+    }
+    
+    func valueCountPerPageDidChange(to value: String) {
+        view.startAnimating()
+        interactor.setCountPerPage(value)
+    }
 }

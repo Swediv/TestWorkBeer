@@ -7,18 +7,23 @@
 
 import Foundation
 
-protocol MainInteractorProtocol {
+protocol MainInteractorProtocol: AnyObject {
     var presenter: MainPresenterProtocol! { get set }
     
     func getBeers()
+    func setCountPerPage(_ number: String)
 }
 
 class MainInteractor: MainInteractorProtocol {
     var presenter: MainPresenterProtocol!
     private var currentTask: URLSessionDataTask?
     
-    var currentPage = 5
-    let countPerPage = "10"
+    var currentPage = 1
+    var countPerPage = "10" {
+        didSet {
+            getBeers()
+        }
+    }
     var isLoading = false
     
     init(presenter: MainPresenterProtocol) {
@@ -27,9 +32,8 @@ class MainInteractor: MainInteractorProtocol {
     
     func getBeers() {
         guard !isLoading else {
-            presenter.presentWarning(withWarning: .doubleRequest)
+            presenter.presentWarning(.doubleRequest)
             return
-            
         }
         
         isLoading = true
@@ -46,14 +50,17 @@ class MainInteractor: MainInteractorProtocol {
                     self?.currentPage += 1
                     self?.presenter.interactorDidFetchedBeers(beers: beers)
                     
-                case .failure(let error):
-                    print(error)
+                case .failure(.parsingError):
+                    self?.presenter.presentError(DecodeError.parsingError)
                 }
                 
             case .failure(let error):
-                print(error)
+                self?.presenter.presentError(error)
             }
         }
-        
+    }
+    
+    func setCountPerPage(_ count: String) {
+        countPerPage = count
     }
 }

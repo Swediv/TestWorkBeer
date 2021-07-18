@@ -9,7 +9,7 @@ import Foundation
 
 enum Warning {
     case doubleRequest
-        
+    
     var description: String {
         switch self {
         

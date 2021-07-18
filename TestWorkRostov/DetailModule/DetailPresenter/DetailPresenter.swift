@@ -17,11 +17,8 @@ protocol DetailPresenterProtocol: AnyObject {
 
 class DetailPresenter: DetailPresenterProtocol {
     weak var view: DetailViewProtocol!
-    
     var interactor: DetailInteractorProtocol!
-    
     var router: DetailRouterProtocol!
-    
     var currentBeer: Beer?
     
     init(view: DetailViewProtocol) {
@@ -30,7 +27,5 @@ class DetailPresenter: DetailPresenterProtocol {
     
     func didPressed(on beer: Beer) {
         view.setDataForPresenting(from: beer)
-    }
-    
-    
+    } 
 }

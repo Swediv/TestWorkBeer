@@ -12,6 +12,7 @@ protocol DetailRouterProtocol: AnyObject {
     var presenter: DetailPresenterProtocol! { get set }
 }
 
+
 class DetailRouter: DetailRouterProtocol {
     var presenter: DetailPresenterProtocol!
     

@@ -9,6 +9,7 @@ import UIKit
 
 protocol MainViewControllerProtocol: AnyObject {
     var presenter: MainPresenterProtocol! { get set }
+    
     func updateData()
     func startAnimating()
     func stopAnimating()
@@ -18,9 +19,27 @@ protocol MainViewControllerProtocol: AnyObject {
 
 class MainViewController: UIViewController, MainViewControllerProtocol {
     var presenter: MainPresenterProtocol!
-
+    
+    lazy var countPerPageControl: UISegmentedControl = {
+        let control = UISegmentedControl()
+        control.translatesAutoresizingMaskIntoConstraints = false
+        control.backgroundColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
+        control.selectedSegmentTintColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
+        control.setTitleTextAttributes([.font : UIFont.systemFont(ofSize: 12), .foregroundColor: UIColor.white],
+                                       for: .normal)
+        control.setTitleTextAttributes([.font : UIFont.systemFont(ofSize: 14), .foregroundColor: UIColor.black],
+                                       for: .selected)
+        control.insertSegment(withTitle: "10", at: 0, animated: false)
+        control.insertSegment(withTitle: "20", at: 1, animated: false)
+        control.insertSegment(withTitle: "30", at: 2, animated: false)
+        control.insertSegment(withTitle: "40", at: 3, animated: false)
+        control.insertSegment(withTitle: "50", at: 4, animated: false)
+        control.addTarget(self, action: #selector(changeCountPerPage), for: .valueChanged)
+        
+        return control
+    }()
     lazy var loadingLabel: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Loading..."
         label.textAlignment = .center
@@ -29,9 +48,7 @@ class MainViewController: UIViewController, MainViewControllerProtocol {
         
         return label
     }()
-    
     lazy var indicator: UIActivityIndicatorView = {
-        
         let indicator = UIActivityIndicatorView(style: .large)
         indicator.translatesAutoresizingMaskIntoConstraints = false
         indicator.color = .white
@@ -42,15 +59,15 @@ class MainViewController: UIViewController, MainViewControllerProtocol {
         
         return indicator
     }()
-    
     lazy var beersTableView: UITableView = {
-       let tableView = UITableView()
+        let tableView = UITableView()
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(BeerCell.self, forCellReuseIdentifier: BeerCell.reuseIdentifier)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.backgroundColor = .gray
         tableView.separatorStyle = .none
+        
         return tableView
     }()
     
@@ -69,35 +86,39 @@ class MainViewController: UIViewController, MainViewControllerProtocol {
     private func setupUI() {
         view.addSubview(beersTableView)
         view.addSubview(indicator)
+        view.addSubview(countPerPageControl)
         
         navigationItem.title = "Beers"
         
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationBar.barStyle = .black
         navigationController?.navigationBar.titleTextAttributes = [.foregroundColor : UIColor.white]
-        
-        
     }
     
     private func setConstraints() {
         NSLayoutConstraint.activate([
-            beersTableView.topAnchor.constraint(equalTo: view.topAnchor),
+            beersTableView.topAnchor.constraint(equalTo: countPerPageControl.bottomAnchor),
             beersTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             beersTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             beersTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             
             indicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            indicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+            indicator.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            
+            countPerPageControl.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            countPerPageControl.widthAnchor.constraint(equalTo: view.widthAnchor, constant: 6),
+            countPerPageControl.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            countPerPageControl.heightAnchor.constraint(equalToConstant: 25)
         ])
     }
+    
     func updateData() {
         DispatchQueue.main.async {
-            
             self.beersTableView.reloadData()
-            
         }
         
     }
+    
     func startAnimating() {
         DispatchQueue.main.async {
             self.indicator.startAnimating()
@@ -108,6 +129,13 @@ class MainViewController: UIViewController, MainViewControllerProtocol {
         DispatchQueue.main.async {
             self.indicator.stopAnimating()
         }
+    }
+    
+    @objc
+    private func changeCountPerPage(_ sender: UISegmentedControl) {
+        beersTableView.setContentOffset(.zero, animated: true)
+        guard let value = sender.titleForSegment(at: sender.selectedSegmentIndex) else { return }
+        presenter.valueCountPerPageDidChange(to: value)
     }
 }
 
@@ -135,9 +163,11 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
             presenter.loadBeers()
         }
     }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         presenter.cellDidPressed(at: indexPath.row)
     }
+    
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if !decelerate {
             if scrollView.isReachedBottom(withTolerance: 60) {
@@ -145,23 +175,20 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
             }
         }
     }
+    
     func makeViewDarker() {
         DispatchQueue.main.async {
             UIView.animate(withDuration: 0.5) { [weak self] in
-
                 self?.view.alpha = 0.7
             }
-
         }
     }
     
     func returnViewToNormalState() {
         DispatchQueue.main.async {
             UIView.animate(withDuration: 0.5) { [weak self] in
-                
                 self?.view.alpha = 1
-            }
-            
+            }  
         }
     }
 }

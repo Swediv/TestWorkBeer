@@ -16,7 +16,6 @@ protocol DetailViewProtocol: AnyObject {
 class DetailViewController: UIViewController, DetailViewProtocol {
     
     var presenter: DetailPresenterProtocol!
-    
     lazy var descriptionStaticTitle: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -24,8 +23,8 @@ class DetailViewController: UIViewController, DetailViewProtocol {
         label.font = UIFont.systemFont(ofSize: 30, weight: .semibold)
         label.textColor = .black
         label.textAlignment = .left
-
-       return label
+        
+        return label
     }()
     lazy var staticTitleBestPairingWith: UILabel = {
         let label = UILabel()
@@ -34,28 +33,25 @@ class DetailViewController: UIViewController, DetailViewProtocol {
         label.font = UIFont.systemFont(ofSize: 30, weight: .semibold)
         label.textColor = .black
         label.textAlignment = .left
-
-       return label
-    
+        
+        return label
     }()
-    
     lazy var backgroundView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         let imageView = UIImageView(frame: view.frame)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(imageView)
+        
         NSLayoutConstraint.activate([
             imageView.widthAnchor.constraint(equalTo: view.widthAnchor),
             imageView.heightAnchor.constraint(equalTo: view.heightAnchor)
         ])
         
-    
         imageView.image = #imageLiteral(resourceName: "beerBackground")
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         imageView.alpha = 0.5
-        
         
         return view
     }()
@@ -74,12 +70,12 @@ class DetailViewController: UIViewController, DetailViewProtocol {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
-    
+        
         
         return stackView
     }()
     lazy var beerImageView: UIImageView = {
-       let imageView = UIImageView()
+        let imageView = UIImageView()
         imageView.backgroundColor = .clear
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
@@ -88,7 +84,7 @@ class DetailViewController: UIViewController, DetailViewProtocol {
     }()
     
     lazy var beerName: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.backgroundColor = .clear
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
@@ -99,7 +95,7 @@ class DetailViewController: UIViewController, DetailViewProtocol {
     }()
     
     lazy var beerDescription: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.backgroundColor = .clear
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
@@ -111,7 +107,7 @@ class DetailViewController: UIViewController, DetailViewProtocol {
     }()
     
     lazy var beerFoodPairing: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.backgroundColor = .clear
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
@@ -124,7 +120,6 @@ class DetailViewController: UIViewController, DetailViewProtocol {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
     }
     
     override func viewWillLayoutSubviews() {
@@ -144,13 +139,12 @@ class DetailViewController: UIViewController, DetailViewProtocol {
         scrollViewContainer.addSubview(staticTitleBestPairingWith)
         
         scrollView.addSubview(scrollViewContainer)
+        
         backgroundView.addSubview(scrollView)
+        
         view.addSubview(backgroundView)
         
-        
         navigationItem.largeTitleDisplayMode = .never
-        
-        
     }
     
     private func setConstraints() {
@@ -195,6 +189,7 @@ class DetailViewController: UIViewController, DetailViewProtocol {
             beerFoodPairing.bottomAnchor.constraint(equalTo: scrollViewContainer.bottomAnchor)
         ])
     }
+    
     func setDataForPresenting(from beer: Beer) {
         
         beerName.text = beer.name
@@ -206,7 +201,6 @@ class DetailViewController: UIViewController, DetailViewProtocol {
         }
         beerFoodPairing.text = beer.foodPairing.joined(separator: "; \n")
     }
-
 }
 
 extension DetailViewController: UIScrollViewDelegate {

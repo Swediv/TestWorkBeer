@@ -7,9 +7,10 @@
 
 import Foundation
 
-protocol MainAssemblyProtocol {
+protocol MainAssemblyProtocol: AnyObject {
     static func configure(with viewController: MainViewController)
 }
+
 
 class MainAssembly: MainAssemblyProtocol {
     static func configure(with viewController: MainViewController) {
@@ -23,5 +24,6 @@ class MainAssembly: MainAssemblyProtocol {
         presenter.router = router
         
         router.view = viewController
+        router.alertFactory = AlertFactory()
     }
 }
