@@ -16,7 +16,28 @@ protocol DetailViewProtocol: AnyObject {
 class DetailViewController: UIViewController, DetailViewProtocol {
     
     var presenter: DetailPresenterProtocol!
+    
+    lazy var descriptionStaticTitle: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Description:"
+        label.font = UIFont.systemFont(ofSize: 30, weight: .semibold)
+        label.textColor = .black
+        label.textAlignment = .left
 
+       return label
+    }()
+    lazy var staticTitleBestPairingWith: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Best pairing with:"
+        label.font = UIFont.systemFont(ofSize: 30, weight: .semibold)
+        label.textColor = .black
+        label.textAlignment = .left
+
+       return label
+    
+    }()
     
     lazy var backgroundView: UIView = {
         let view = UIView()
@@ -83,8 +104,9 @@ class DetailViewController: UIViewController, DetailViewProtocol {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
         label.textAlignment = .center
-        label.textColor = .black
-        label.font = UIFont.systemFont(ofSize: 25, weight: .semibold)
+        label.textColor = .white
+        label.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
+        
         return label
     }()
     
@@ -93,6 +115,9 @@ class DetailViewController: UIViewController, DetailViewProtocol {
         label.backgroundColor = .clear
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
+        label.textAlignment = .left
+        label.textColor = .white
+        label.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
         
         return label
     }()
@@ -115,6 +140,8 @@ class DetailViewController: UIViewController, DetailViewProtocol {
         scrollViewContainer.addSubview(beerName)
         scrollViewContainer.addSubview(beerDescription)
         scrollViewContainer.addSubview(beerFoodPairing)
+        scrollViewContainer.addSubview(descriptionStaticTitle)
+        scrollViewContainer.addSubview(staticTitleBestPairingWith)
         
         scrollView.addSubview(scrollViewContainer)
         backgroundView.addSubview(scrollView)
@@ -151,12 +178,19 @@ class DetailViewController: UIViewController, DetailViewProtocol {
             beerImageView.centerXAnchor.constraint(equalTo: scrollViewContainer.centerXAnchor),
             beerImageView.heightAnchor.constraint(equalToConstant: 600),
             
+            descriptionStaticTitle.topAnchor.constraint(equalTo: beerImageView.bottomAnchor, constant: 8),
+            descriptionStaticTitle.widthAnchor.constraint(equalTo: scrollViewContainer.widthAnchor),
+            descriptionStaticTitle.bottomAnchor.constraint(equalTo: beerDescription.topAnchor),
             
-            beerDescription.topAnchor.constraint(equalTo: beerImageView.bottomAnchor,constant: 5),
+            beerDescription.topAnchor.constraint(equalTo: descriptionStaticTitle.bottomAnchor,constant: 5),
             beerDescription.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-            beerDescription.bottomAnchor.constraint(equalTo: beerFoodPairing.topAnchor, constant: -5),
+            beerDescription.bottomAnchor.constraint(equalTo: staticTitleBestPairingWith.topAnchor, constant: -5),
             
-            beerFoodPairing.topAnchor.constraint(equalTo: beerDescription.bottomAnchor, constant: 5),
+            staticTitleBestPairingWith.topAnchor.constraint(equalTo: beerDescription.bottomAnchor, constant: 8),
+            staticTitleBestPairingWith.widthAnchor.constraint(equalTo: scrollViewContainer.widthAnchor),
+            staticTitleBestPairingWith.bottomAnchor.constraint(equalTo: beerFoodPairing.topAnchor),
+            
+            beerFoodPairing.topAnchor.constraint(equalTo: staticTitleBestPairingWith.bottomAnchor, constant: 5),
             beerFoodPairing.widthAnchor.constraint(equalTo: scrollViewContainer.widthAnchor),
             beerFoodPairing.bottomAnchor.constraint(equalTo: scrollViewContainer.bottomAnchor)
         ])
@@ -170,7 +204,7 @@ class DetailViewController: UIViewController, DetailViewProtocol {
                 self?.beerImageView.image = image
             }
         }
-        beerFoodPairing.text = beer.foodPairing.joined(separator: "\n")
+        beerFoodPairing.text = beer.foodPairing.joined(separator: "; \n")
     }
 
 }

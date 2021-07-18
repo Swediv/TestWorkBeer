@@ -146,22 +146,22 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
     func makeViewDarker() {
-//        DispatchQueue.main.async {
-//            UIView.animate(withDuration: 0.5) { [weak self] in
-//
-//                self?.view.alpha = 0.7
-//            }
-//
-//        }
+        DispatchQueue.main.async {
+            UIView.animate(withDuration: 0.5) { [weak self] in
+
+                self?.view.alpha = 0.7
+            }
+
+        }
     }
     
     func returnViewToNormalState() {
-//        DispatchQueue.main.async {
-//            UIView.animate(withDuration: 0.5) { [weak self] in
-//                
-//                self?.view.alpha = 1
-//            }
-//            
-//        }
+        DispatchQueue.main.async {
+            UIView.animate(withDuration: 0.5) { [weak self] in
+                
+                self?.view.alpha = 1
+            }
+            
+        }
     }
 }
