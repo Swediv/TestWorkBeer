@@ -9,9 +9,13 @@ import Foundation
 
 
 protocol DetailRouterProtocol: AnyObject {
-    
+    var presenter: DetailPresenterProtocol! { get set }
 }
 
 class DetailRouter: DetailRouterProtocol {
+    var presenter: DetailPresenterProtocol!
     
+    init(presenter: DetailPresenterProtocol) {
+        self.presenter = presenter
+    }
 }

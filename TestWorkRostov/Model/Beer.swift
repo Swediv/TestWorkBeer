@@ -15,11 +15,11 @@ import Foundation
         let imageURL: String
         let abv: Double
         let ibu, targetFg: Double?
-        let targetOg: Double
+        let targetOg: Double?
         let ebc, srm: Double?
         let ph, attenuationLevel: Double?
         let volume, boilVolume: BoilVolume
-        let method: Method
+        let method: Method?
         let ingredients: Ingredients?
         let foodPairing: [String]
         let brewersTips: String
@@ -46,7 +46,7 @@ import Foundation
 
     // MARK: - BoilVolume
     struct BoilVolume: Codable {
-        let value: Double
+        let value: Double?
         let unit: Unit
     }
 //
@@ -70,7 +70,7 @@ import Foundation
     struct Ingredients: Codable {
         let malt: [Malt]
         let hops: [Hop]?
-        let yeast: String
+        let yeast: String?
     }
 
     // MARK: - Hop

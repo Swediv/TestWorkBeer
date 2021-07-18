@@ -8,9 +8,13 @@
 import Foundation
 
 protocol DetailInteractorProtocol: AnyObject {
-    
+    var presenter: DetailPresenterProtocol! { get set }
 }
 
 class DetailInteractor: DetailInteractorProtocol {
+    var presenter: DetailPresenterProtocol!
     
+    init(presenter: DetailPresenterProtocol) {
+        self.presenter = presenter
+    }
 }

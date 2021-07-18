@@ -17,7 +17,7 @@ class MainInteractor: MainInteractorProtocol {
     var presenter: MainPresenterProtocol!
     private var currentTask: URLSessionDataTask?
     
-    var currentPage = 1
+    var currentPage = 5
     let countPerPage = "10"
     var isLoading = false
     
@@ -26,6 +26,12 @@ class MainInteractor: MainInteractorProtocol {
     }
     
     func getBeers() {
+        guard !isLoading else {
+            presenter.presentWarning(withWarning: .doubleRequest)
+            return
+            
+        }
+        
         isLoading = true
         currentTask?.cancel()
         currentTask = NetworkManager.request(.forLoading(page: "\(currentPage)", countPerPage: countPerPage)) { [weak self] result in
@@ -37,10 +43,9 @@ class MainInteractor: MainInteractorProtocol {
                 switch jsonData {
                 
                 case .success(let beers):
-                    print("ParsingService: Decoded models count:",beers.count)
-                    print("ParsingService: Decoded first model name:",beers[0].name)
                     self?.currentPage += 1
                     self?.presenter.interactorDidFetchedBeers(beers: beers)
+                    
                 case .failure(let error):
                     print(error)
                 }
@@ -49,7 +54,6 @@ class MainInteractor: MainInteractorProtocol {
                 print(error)
             }
         }
+        
     }
-    
-    
 }

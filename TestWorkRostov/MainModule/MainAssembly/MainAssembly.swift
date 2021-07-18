@@ -20,6 +20,8 @@ class MainAssembly: MainAssemblyProtocol {
         viewController.presenter = presenter
         
         presenter.interactor = interactor
-        presenter.router = router     
+        presenter.router = router
+        
+        router.view = viewController
     }
 }

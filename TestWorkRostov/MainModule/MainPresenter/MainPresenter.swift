@@ -17,6 +17,7 @@ protocol MainPresenterProtocol: AnyObject {
     func loadBeers()
     func interactorDidFetchedBeers(beers: [Beer])
     func cellDidPressed(at index: Int)
+    func presentWarning(withWarning warning: Warning)
 }
 
 class MainPresenter: MainPresenterProtocol {
@@ -25,6 +26,8 @@ class MainPresenter: MainPresenterProtocol {
     
     var interactor: MainInteractorProtocol! {
         didSet {
+            view.makeViewDarker()
+            view.startAnimating()
             interactor.getBeers()
         }
     }
@@ -35,12 +38,16 @@ class MainPresenter: MainPresenterProtocol {
         didSet {
             beersCount = beers.count
             view.updateData()
+            view.stopAnimating()
+            view.returnViewToNormalState()
         }
     }
     
     var beersCount = 0 {
         didSet {
             view.updateData()
+            view.stopAnimating()
+            view.returnViewToNormalState()
         }
     }
 
@@ -49,6 +56,8 @@ class MainPresenter: MainPresenterProtocol {
     }
     
     func loadBeers() {
+        view.makeViewDarker()
+        view.startAnimating()
         interactor.getBeers()
     }
     func interactorDidFetchedBeers(beers: [Beer]) {
@@ -57,6 +66,9 @@ class MainPresenter: MainPresenterProtocol {
     }
     func cellDidPressed(at index: Int) {
         router.presentDetailView(with: beers[index])
+    }
+    func presentWarning(withWarning warning: Warning) {
+        router.presentWarning(withWarning: warning)
     }
     
 }

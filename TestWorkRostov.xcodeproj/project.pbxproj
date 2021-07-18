@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		10F2CA3426A456460073366A /* AlertFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F2CA3326A456460073366A /* AlertFactory.swift */; };
+		10F2CA3726A4649B0073366A /* Warning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F2CA3626A4649B0073366A /* Warning.swift */; };
+		10F2CA3B26A46D8F0073366A /* DecodeError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F2CA3A26A46D8F0073366A /* DecodeError.swift */; };
 		10F4C8AA26A18FDA0021E57F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F4C8A926A18FDA0021E57F /* AppDelegate.swift */; };
 		10F4C8B326A18FDB0021E57F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 10F4C8B226A18FDB0021E57F /* Assets.xcassets */; };
 		10F4C8B626A18FDB0021E57F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 10F4C8B426A18FDB0021E57F /* LaunchScreen.storyboard */; };
@@ -31,6 +34,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		10F2CA3326A456460073366A /* AlertFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertFactory.swift; sourceTree = "<group>"; };
+		10F2CA3626A4649B0073366A /* Warning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Warning.swift; sourceTree = "<group>"; };
+		10F2CA3A26A46D8F0073366A /* DecodeError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecodeError.swift; sourceTree = "<group>"; };
 		10F4C8A626A18FDA0021E57F /* TestWorkRostov.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestWorkRostov.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		10F4C8A926A18FDA0021E57F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		10F4C8B226A18FDB0021E57F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -67,6 +73,46 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		10F2CA3126A456230073366A /* Factories */ = {
+			isa = PBXGroup;
+			children = (
+				10F2CA3226A4562E0073366A /* AlertFactory */,
+			);
+			path = Factories;
+			sourceTree = "<group>";
+		};
+		10F2CA3226A4562E0073366A /* AlertFactory */ = {
+			isa = PBXGroup;
+			children = (
+				10F2CA3326A456460073366A /* AlertFactory.swift */,
+			);
+			path = AlertFactory;
+			sourceTree = "<group>";
+		};
+		10F2CA3526A464650073366A /* Warnings */ = {
+			isa = PBXGroup;
+			children = (
+				10F2CA3626A4649B0073366A /* Warning.swift */,
+			);
+			path = Warnings;
+			sourceTree = "<group>";
+		};
+		10F2CA3826A46D710073366A /* Errors */ = {
+			isa = PBXGroup;
+			children = (
+				10F2CA3926A46D7E0073366A /* DecodeError */,
+			);
+			path = Errors;
+			sourceTree = "<group>";
+		};
+		10F2CA3926A46D7E0073366A /* DecodeError */ = {
+			isa = PBXGroup;
+			children = (
+				10F2CA3A26A46D8F0073366A /* DecodeError.swift */,
+			);
+			path = DecodeError;
+			sourceTree = "<group>";
+		};
 		10F4C89D26A18FDA0021E57F = {
 			isa = PBXGroup;
 			children = (
@@ -86,6 +132,9 @@
 		10F4C8A826A18FDA0021E57F /* TestWorkRostov */ = {
 			isa = PBXGroup;
 			children = (
+				10F2CA3826A46D710073366A /* Errors */,
+				10F2CA3526A464650073366A /* Warnings */,
+				10F2CA3126A456230073366A /* Factories */,
 				10F4C8DB26A1B0640021E57F /* Services */,
 				10F4C8D026A19BB10021E57F /* Extension */,
 				10F4C8C326A190F80021E57F /* Model */,
@@ -349,8 +398,11 @@
 				10F4C8E426A1E06C0021E57F /* ParsingService.swift in Sources */,
 				10F4C8AA26A18FDA0021E57F /* AppDelegate.swift in Sources */,
 				10F4C8CF26A199B80021E57F /* Beer.swift in Sources */,
+				10F2CA3726A4649B0073366A /* Warning.swift in Sources */,
 				10F4C8E926A22FD10021E57F /* UIScrollView+Extension.swift in Sources */,
+				10F2CA3B26A46D8F0073366A /* DecodeError.swift in Sources */,
 				10F4C8E026A1B0AD0021E57F /* URLBuilder.swift in Sources */,
+				10F2CA3426A456460073366A /* AlertFactory.swift in Sources */,
 				10F4C8E726A1FD360021E57F /* ImageService.swift in Sources */,
 				10F4C8D426A19DA40021E57F /* MainPresenter.swift in Sources */,
 				10F4C8F226A2C8780021E57F /* DetailPresenter.swift in Sources */,
@@ -501,6 +553,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = RZ5RABYPL9;
 				INFOPLIST_FILE = TestWorkRostov/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -520,6 +573,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = RZ5RABYPL9;
 				INFOPLIST_FILE = TestWorkRostov/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

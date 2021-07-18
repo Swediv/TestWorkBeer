@@ -9,6 +9,14 @@ import UIKit
 
 class BeerCell: UITableViewCell {
 
+    private var task: URLSessionDataTask?
+    
+    var beerImageURL: URL? {
+        didSet {
+            setImage()
+        }
+    }
+    
     lazy var cellView: UIView = {
        let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -19,12 +27,26 @@ class BeerCell: UITableViewCell {
         return view
     }()
     
+    lazy var indicator: UIActivityIndicatorView = {
+        
+        let indicator = UIActivityIndicatorView()
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        indicator.color = .black
+        indicator.hidesWhenStopped = true
+        
+
+        return indicator
+    }()
+    
     lazy var beerImage: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
         imageView.backgroundColor = .clear
         imageView.layer.cornerRadius = 15
+        imageView.addSubview(indicator)
+        indicator.centerXAnchor.constraint(equalTo: imageView.centerXAnchor).isActive = true
+        indicator.centerYAnchor.constraint(equalTo: imageView.centerYAnchor).isActive = true
         
         return imageView
     }()
@@ -52,16 +74,14 @@ class BeerCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         
+        task?.cancel()
         beerName.text = ""
         beerImage.image = nil
     }
     func configure(with beer: Beer) {
         beerName.text = beer.name
-        if let url = URL(string: beer.imageURL) {
-             ImageService.getImage(from: url) { [weak self] image in
-                self?.beerImage.image = image
-            }
-        }
+        beerImage.image = nil
+        self.beerImageURL = URL(string: beer.imageURL)
         
         
     }
@@ -76,8 +96,8 @@ class BeerCell: UITableViewCell {
         NSLayoutConstraint.activate([
             cellView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
             cellView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
-            cellView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 5),
-            cellView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5),
+            cellView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
+            cellView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15),
             
             beerName.topAnchor.constraint(equalTo: cellView.topAnchor),
             beerName.leadingAnchor.constraint(equalTo: cellView.leadingAnchor, constant: 10),
@@ -89,5 +109,16 @@ class BeerCell: UITableViewCell {
             beerImage.widthAnchor.constraint(equalTo: cellView.widthAnchor, multiplier: 0.8),
             
         ])
+    }
+    private func setImage() {
+        if let url = beerImageURL {
+            indicator.startAnimating()
+             task = ImageService.getImage(from: url) { [weak self] image in
+                self?.beerImage.image = image
+                DispatchQueue.main.async {
+                    self?.indicator.stopAnimating()
+                }
+            }
+        }
     }
 }

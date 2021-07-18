@@ -10,6 +10,10 @@ import UIKit
 protocol MainViewControllerProtocol: AnyObject {
     var presenter: MainPresenterProtocol! { get set }
     func updateData()
+    func startAnimating()
+    func stopAnimating()
+    func makeViewDarker()
+    func returnViewToNormalState()
 }
 
 class MainViewController: UIViewController, MainViewControllerProtocol {
@@ -20,14 +24,14 @@ class MainViewController: UIViewController, MainViewControllerProtocol {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Loading..."
         label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 17)
+        label.font = UIFont.systemFont(ofSize: 18)
         label.textColor = .white
-        label.shadowOffset = CGSize(width: 1, height: 2)
         
         return label
     }()
     
     lazy var indicator: UIActivityIndicatorView = {
+        
         let indicator = UIActivityIndicatorView(style: .large)
         indicator.translatesAutoresizingMaskIntoConstraints = false
         indicator.color = .white
@@ -69,6 +73,9 @@ class MainViewController: UIViewController, MainViewControllerProtocol {
         navigationItem.title = "Beers"
         
         navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.barStyle = .black
+        navigationController?.navigationBar.titleTextAttributes = [.foregroundColor : UIColor.white]
+        
         
     }
     
@@ -80,7 +87,7 @@ class MainViewController: UIViewController, MainViewControllerProtocol {
             beersTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             
             indicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            indicator.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -40)
+            indicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
     }
     func updateData() {
@@ -90,6 +97,17 @@ class MainViewController: UIViewController, MainViewControllerProtocol {
             
         }
         
+    }
+    func startAnimating() {
+        DispatchQueue.main.async {
+            self.indicator.startAnimating()
+        }
+    }
+    
+    func stopAnimating() {
+        DispatchQueue.main.async {
+            self.indicator.stopAnimating()
+        }
     }
 }
 
@@ -103,6 +121,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         let beer = presenter.beers[indexPath.row]
         cell.configure(with: beer)
         cell.backgroundColor = .clear
+        cell.selectionStyle = .none
         
         return cell
     }
@@ -125,5 +144,24 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
                 presenter.loadBeers()
             }
         }
+    }
+    func makeViewDarker() {
+//        DispatchQueue.main.async {
+//            UIView.animate(withDuration: 0.5) { [weak self] in
+//
+//                self?.view.alpha = 0.7
+//            }
+//
+//        }
+    }
+    
+    func returnViewToNormalState() {
+//        DispatchQueue.main.async {
+//            UIView.animate(withDuration: 0.5) { [weak self] in
+//                
+//                self?.view.alpha = 1
+//            }
+//            
+//        }
     }
 }
